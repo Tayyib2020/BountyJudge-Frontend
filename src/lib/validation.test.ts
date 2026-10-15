@@ -1,0 +1,4 @@
+import { describe, expect, it } from "vitest";
+import { parseGithubCommitUrl, validateSubmission } from "./validation";
+const sha = "611c6162cbc4ac2020a2f91c7cfa4f3abf9bbb60";
+describe("submission validation", () => { it("accepts a complete GitHub submission", () => expect(validateSubmission({ owner:"psf", repo:"requests", commitSha:sha })).toBeNull()); it("rejects abbreviated and non-hexadecimal SHAs", () => { expect(validateSubmission({ owner:"psf", repo:"requests", commitSha:"611c" })).toMatch(/40-character/); expect(validateSubmission({ owner:"psf", repo:"requests", commitSha:"z".repeat(40) })).toMatch(/40-character/); }); it("parses an exact commit URL", () => expect(parseGithubCommitUrl(`https://github.com/psf/requests/commit/${sha}`)).toEqual({ owner:"psf",repo:"requests",commitSha:sha })); it("refuses branch URLs", () => expect(parseGithubCommitUrl("https://github.com/psf/requests/tree/main")).toBeNull()); });
