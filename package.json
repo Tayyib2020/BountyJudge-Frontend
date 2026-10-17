@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --configLoader runner",
     "preview": "vite preview --configLoader runner",
+    "local-preview": "node scripts/local-preview.mjs",
     "build": "tsc -b && vite build --configLoader runner",
     "lint": "eslint .",
     "test": "vitest run --configLoader runner --pool=threads --maxWorkers=1"

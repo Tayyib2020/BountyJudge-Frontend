@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { BountyJudgeError, connectWallet, submitEvaluation } from "./genlayer";
+import { BountyJudgeError, classifyTransactionLifecycle, connectWallet, explorerTransactionUrl, submitEvaluation } from "./genlayer";
 
 const originalEthereum = window.ethereum;
 
@@ -18,5 +18,16 @@ describe("wallet and write safety gates", () => {
 
   it("does not provide a hidden write fallback without a fee profile", async () => {
     await expect(submitEvaluation()).rejects.toBeInstanceOf(BountyJudgeError);
+  });
+
+  it("distinguishes pending, accepted, finalized, and failed lifecycle states", () => {
+    expect(classifyTransactionLifecycle("0xtx", { statusName: "COMMITTING" }).phase).toBe("pending");
+    expect(classifyTransactionLifecycle("0xtx", { statusName: "ACCEPTED" }).phase).toBe("accepted");
+    expect(classifyTransactionLifecycle("0xtx", { statusName: "FINALIZED", txExecutionResultName: "FINISHED_WITH_RETURN" }).phase).toBe("finalized");
+    expect(classifyTransactionLifecycle("0xtx", { statusName: "FINALIZED", txExecutionResultName: "FINISHED_WITH_ERROR" }).phase).toBe("failed");
+  });
+
+  it("builds the supported Studio Explorer transaction URL", () => {
+    expect(explorerTransactionUrl("0xabc")).toBe("https://explorer-studio.genlayer.com/tx/0xabc");
   });
 });
