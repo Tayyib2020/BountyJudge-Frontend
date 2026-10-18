@@ -1,0 +1,47 @@
+{
+  "ctor": {
+    "params": [],
+    "kwparams": {}
+  },
+  "methods": {
+    "evaluate": {
+      "params": [
+        [
+          "owner",
+          "string"
+        ],
+        [
+          "repo",
+          "string"
+        ],
+        [
+          "commit_sha",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "string",
+      "payable": false
+    },
+    "get_evaluation": {
+      "params": [
+        [
+          "owner",
+          "string"
+        ],
+        [
+          "repo",
+          "string"
+        ],
+        [
+          "commit_sha",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "string"
+    }
+  }
+}

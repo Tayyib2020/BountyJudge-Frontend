@@ -4,3 +4,15 @@ dist/
 .env
 .env.*
 !.env.example
+
+# Copied contract test environment and local validation output
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.sdk-fee-audit/
+.genlayer/
+.tools/
+work/
+outputs/
